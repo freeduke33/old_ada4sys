@@ -1,0 +1,1 @@
+@..\emul\upi_3m\upi_3m.exe ..\emul\upi_3m\cfg %1 d:\dn\dn.com

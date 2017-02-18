@@ -1,0 +1,7 @@
+project: pl.exe eq.exe
+
+pl.exe: pl141296.cpp
+   wcl /dDETECTIVE /d2 /i..\inc /fpi87/fp5/5 pl141296.cpp /fe=pl
+
+eq.exe: eq141296.cpp
+   wcl /dDETECTIVE /d2 /i..\inc /fpi87/fp5/5 eq141296.cpp /fe=eq

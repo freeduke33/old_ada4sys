@@ -1,0 +1,49 @@
+project : ada_gen.exe .SYMBOLIC
+
+W = ..\..
+
+COPT  = /d2/wx/oxt/ml/zq/zu/i.;..\.;$(W)\upi;$(W)\adaptive\inc  /fo=.\wbin\$^&
+POPT  = $(COPT)
+
+SDIR = $(W)\upi;.\;..\
+
+.c:   $(SDIR)
+.cpp: $(SDIR)
+.obj: .\wbin
+
+.before:
+   @set GEN_CC=$(COPT)
+   @set GEN_PP=$(POPT)
+
+etalon.obj: ..\etalon.cpp .AUTODEPEND
+     wpp @GEN_PP ..\etalon.cpp /D__NOTCXL__
+
+.c.obj: .AUTODEPEND
+        wcc @GEN_CC $[*
+.cpp.obj: .AUTODEPEND
+        wpp @GEN_PP $[*
+
+
+OBJS = multigen.obj &
+       aloop.obj    &
+       config.obj   &
+       okmodel.obj  &
+       cfgloop.obj  &
+       buf_io.obj   &
+       dac_adc.obj  &
+       common.obj  &
+       log.obj      &
+       etalon.obj   &
+       result.obj
+
+ada_gen.exe : $(OBJS) $(W)\adaptive\wbin\adaptive.lib
+    @%write  mgen.lk NAME ada_gen
+    @%append mgen.lk SYS dos OP m D all OP st=20480 OP maxe=25 OP v OP d
+    @%append mgen.lk FILE wbin\*.obj
+    @%append mgen.lk LIBFILE $(W)\adaptive\wbin\adaptive.lib
+    @wlink $(LOPT) @mgen.lk
+    @del mgen.lk
+
+
+
+

@@ -1,0 +1,1 @@
+@..\emul\upi_3w\upi_3w.exe ..\emul\upi_3w\cfg %1 wbin\ada_4sys

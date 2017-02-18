@@ -1,0 +1,37 @@
+project: upi_wtst.exe
+
+WORK=.\..\..
+
+.obj: wbin\
+.exe: wbin\
+
+PP= wpp
+CC= wcc
+OPT= /zq/ml/d2/5/oxt/zdp/i$(WORK)\adaptive\inc;$(WORK)\emul /fo=wbin\
+OBJS=upi_test.obj &
+     dac_adc.obj &
+     $(WORK)\adaptive\wbin\adaptive.lib &
+     $(WORK)\emul\models\wbin\e_models.lib &
+
+.before
+  @set UPI_TEST=$(OPT)
+
+
+upi_test.obj: upi_test.cpp wbin\upi_test. .AUTODEPEND
+  $(PP) @UPI_TEST upi_test.cpp
+
+dac_adc.obj:  $(WORK)\upi\dac_adc.c $(WORK)\upi\dac_adc.h wbin\upi_test. .AUTODEPEND
+  $(CC) @UPI_TEST $(WORK)\upi\dac_adc.c
+
+wbin\upi_test.lnk: makefile. .AUTODEPEND
+  @%write  wbin\upi_test.lnk NAME upi_wtst
+  @%append wbin\upi_test.lnk FILE wbin\upi_test.obj, wbin\dac_adc.obj
+  @%append wbin\upi_test.lnk LIBRARY $(WORK)\adaptive\wbin\adaptive.lib
+  @%append wbin\upi_test.lnk LIBRARY $(WORK)\emul\models\wbin\e_models.lib
+
+wbin\upi_test.: makefile. .AUTODEPEND
+  @%write WBIN\UPI_TEST. $(OPT)
+
+upi_wtst.exe: $(OBJS) wbin\upi_test.lnk
+  @*wlink SYS dos OP m D all OP v OP st=4096 @wbin\upi_test.lnk
+

@@ -1,0 +1,10 @@
+project: upi_pipe.exe
+
+COPT=/zq/wx/mf/bt=os2/d2/i..\models
+
+upi_pipe.obj: upi_pipe.cpp upi_pipe.hpp .AUTODEPEND
+   wpp386 $(COPT) upi_pipe.cpp
+
+upi_pipe.exe: upi_pipe.obj ..\models\wbin\e_models.lib .AUTODEPEND
+   wcl386 /zq/ml/d2/l=os2v2 upi_pipe.obj ..\models\wbin\e_models.lib
+#   wlink NAME upi_pipe FILE upi_pipe.obj, ..\models\wbin\e_models.lib FORMAT OS2 FLAT FULLSCREEN

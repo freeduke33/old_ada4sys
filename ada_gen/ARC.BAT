@@ -1,0 +1,1 @@
+arj a -u ada_gen *.c *.h *.uir *.bat *.prj

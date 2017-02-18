@@ -1,0 +1,1 @@
+..\graber\grab_grf test.out 4096 0

@@ -1,0 +1,1 @@
+bcc -ml -v- -3 -d -Z def_3w.c wzk.c randparm.c psinparm.c sinparm.c _tcxlbcl.lib tcxlbcl.lib

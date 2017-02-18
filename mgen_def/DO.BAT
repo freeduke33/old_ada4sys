@@ -1,0 +1,1 @@
+mgen_def ..\cfg

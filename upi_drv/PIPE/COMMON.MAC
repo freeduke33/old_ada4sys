@@ -1,0 +1,46 @@
+
+EOT     equ     24h
+CR      equ     0dh
+NL      equ     0ah
+BELL    equ     07h
+BKSP    equ     08h
+TAB     equ     09h
+
+DRV_OK          equ      0
+DRV_FAILED      equ     -1
+DRV_NONE        equ     -2
+DRV_ERRARG      equ     -3
+DRV_ERRFUN      equ     -4
+DRV_REINIT      equ     -5
+
+print macro str
+      lea   dx,str
+      mov   ah,9
+      int   21h
+endm
+
+putc macro ch
+     mov   ax,0E00h+ch
+     int   10h
+endm
+
+CfgBYTE         equ 1 ; 0x?? | 0b?? | ??
+CfgWORD         equ 2 ; 0x?? | 0b?? | ??
+CfgDWORD        equ 3 ; 0x?? | 0b?? | ??
+CfgSBYTE        equ 4 ; +/-??
+CfgSWORD        equ 5 ; +/-??
+CfgSDWORD       equ 6 ; +/-??
+CfgSTR          equ 7
+CfgLIST         equ 8
+
+
+CfgItem struc
+name           db       35 dup(?)
+type           db       ?
+TargetPtr      dd       ?
+MaxVal         dd       ?       ;; MaxList, StrLength
+MinVal         dd       ?
+ends
+
+MaxList        equ      MaxVal
+

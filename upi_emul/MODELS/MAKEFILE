@@ -1,0 +1,50 @@
+
+CC=wpp386
+COPT=/wx/mf/bt=os2/d2/fo=.\wbin\
+
+OBJS=wbin\nil_load.obj &
+     wbin\nil_save.obj &
+     wbin\nilclass.obj &
+     wbin\reglist.obj  &
+     wbin\zveno.obj    &
+     wbin\build_d.obj  &
+     wbin\dmass.obj    &
+     wbin\dmass1.obj   &
+     wbin\enter_d.obj  &
+     wbin\get_d.obj    &
+     wbin\set_d.obj    &
+     wbin\enter_f.obj  &
+     wbin\functio1.obj &
+     wbin\functio2.obj &
+     wbin\functio3.obj &
+     wbin\functio4.obj &
+     wbin\functio5.obj &
+     wbin\functio6.obj &
+     wbin\function.obj &
+     wbin\get_f.obj    &
+     wbin\set_f.obj    &
+     wbin\enter_o.obj  &
+     wbin\get_o.obj    &
+     wbin\oscill.obj   &
+     wbin\oscill1.obj  &
+     wbin\oscill2.obj  &
+     wbin\oscill3.obj  &
+     wbin\oscill4.obj  &
+     wbin\set_o.obj    &
+     wbin\enter_t.obj  &
+     wbin\get_t.obj    &
+     wbin\set_t.obj    &
+     wbin\test.obj     &
+     wbin\test1.obj     &
+
+.cpp:.\;.\dualmass\;.\function\;.\oscill\;.\trace\
+
+.cpp.obj: .AUTODEPEND
+    $(CC) $(COPT) $<
+
+wbin\e_models.lib: $(OBJS) .AUTODEPEND
+ @echo off
+ for %%k in (wbin\*.obj) do echo +%%k >>models.lst
+ if exist wbin\e_models.lib del wbin\e_models.lib
+ wlib -l -c wbin\e_models.lib @models.lst
+ del models.lst

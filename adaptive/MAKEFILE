@@ -1,0 +1,95 @@
+OBJPATH = .\wbin
+project: $(OBJPATH)\adaptive.lib
+
+#               *Translator Definitions*
+
+CC = wpp @ADAPTIVE
+
+#COPT = /bt=dos/zq/5/ml/zdp/oneatx/i.\inc;..\upi /fo=$(OBJPATH)\
+COPT = /d2/zq/ml/5/fpi87/fp5 /i.\inc;..\upi /fo=$(OBJPATH)\
+
+TLIB = wlib
+TLINK = wlink
+LIBPATH = D:\WATCOM\LIB;
+INCLUDEPATH = D:\WATCOM\INCLUDE;.\INC;..\UPI
+
+.before
+ @echo.
+ @set ADAPTIVE=$(COPT)
+
+
+#               *Implicit Rules*
+.obj: $(OBJPATH)\
+.cpp: .\;031095\;270392\;270395\;211196\;141296\;MISTAKE\;OLD\;ANATOMY\;BUFFER\;EXAMINE\;DEFENCE\;GENERATE\;LOG\;
+
+.cpp.obj: .AUTODEPEND options.mk
+ $(CC) $<
+
+
+#               *List Macros*
+
+
+LIB_dependencies = $(OBJPATH)\model.obj &
+ $(OBJPATH)\asloop.obj &
+ $(OBJPATH)\loop.obj &
+ $(OBJPATH)\mdltest.obj &
+ $(OBJPATH)\sloop.obj &
+ $(OBJPATH)\fperror.obj &
+ $(OBJPATH)\membuf.obj &
+ $(OBJPATH)\bufsin.obj &
+ $(OBJPATH)\deltrend.obj &
+ $(OBJPATH)\deltr_0.obj &
+ $(OBJPATH)\deltr_1.obj &
+ $(OBJPATH)\mdl_base.obj &
+ $(OBJPATH)\mdl_bas1.obj &
+ $(OBJPATH)\gen_base.obj &
+ $(OBJPATH)\gen_bas1.obj &
+ $(OBJPATH)\m1_1095.obj &
+ $(OBJPATH)\m2_1095.obj &
+ $(OBJPATH)\m1_1196.obj &
+ $(OBJPATH)\pl141296.obj &
+ $(OBJPATH)\eq141296.obj &
+ $(OBJPATH)\arss_1.obj &
+ $(OBJPATH)\arss_2.obj &
+ $(OBJPATH)\arss_3.obj &
+ $(OBJPATH)\arss_4.obj &
+ $(OBJPATH)\ss_1.obj &
+ $(OBJPATH)\ss_2.obj &
+ $(OBJPATH)\ss_3.obj &
+ $(OBJPATH)\ss_4.obj &
+ $(OBJPATH)\arss_1g.obj &
+ $(OBJPATH)\arss_2g.obj &
+ $(OBJPATH)\ss_1g.obj &
+ $(OBJPATH)\ss_2g.obj &
+ $(OBJPATH)\arss.obj &
+ $(OBJPATH)\ss.obj &
+ $(OBJPATH)\square.obj &
+ $(OBJPATH)\mathwait.obj &
+ $(OBJPATH)\mistake.obj &
+ $(OBJPATH)\gen_datf.obj &
+ $(OBJPATH)\gen_prgf.obj &
+ $(OBJPATH)\gen_psin.obj &
+ $(OBJPATH)\gen_sbuf.obj &
+ $(OBJPATH)\gen_sin.obj &
+ $(OBJPATH)\gen_vbuf.obj &
+ $(OBJPATH)\gen_tpl.obj &
+ $(OBJPATH)\log.obj &
+ $(OBJPATH)\ltxtfile.obj &
+ $(OBJPATH)\anatomy.obj &
+ $(OBJPATH)\dfn_acc.obj &
+ $(OBJPATH)\dfn_full.obj &
+ $(OBJPATH)\dfn_spee.obj &
+ $(OBJPATH)\static.obj &
+ $(OBJPATH)\st_speed.obj &
+ $(OBJPATH)\st_accel.obj &
+ $(OBJPATH)\templ_1.obj &
+ $(OBJPATH)\achh.obj
+
+#               *Explicit Rules*
+$(OBJPATH)\adaptive.lib: $(LIB_dependencies) .AUTODEPEND
+#  @if exist $(OBJPATH)\adaptive.lib @del $(OBJPATH)\adaptive.lib
+  @for %%i in ($(OBJPATH)\*.obj) do @echo.+-%%i >>ada.lst
+  @$(TLIB) -c -n $(OBJPATH)\adaptive.lib @ada.lst
+  @del ada.lst
+
+

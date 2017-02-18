@@ -1,0 +1,132 @@
+project : .\wbin\ada_4sys.exe .SYMBOLIC
+
+COPT= -i=D:\WATCOM\h;d:\tcxl\inc;..\upi;..\grf;..\adaptive\inc;.\ems /zq/d2/zdp/zm/ml/5/bt=dos/fo=wbin\
+POPT= -i=D:\WATCOM\h;d:\tcxl\inc;..\upi;..\grf;..\adaptive\inc;.\ems /zq/zm/d2/zdp/ml/5/bt=dos/fo=wbin\
+CC=wcc
+PP=wpp
+
+LIBS=d:\tcxl\tcxlwcld.lib&
+     d:\tcxl\_tcxlwcl.lib&
+     ..\adaptive\wbin\adaptive.lib
+
+OBJS=wbin\buf_io.obj  &
+     wbin\upi.obj     &
+     wbin\tcxlcfg.obj &
+     wbin\config.obj  &
+     wbin\run_grf.obj &
+     wbin\sys_test.obj&
+     wbin\vars.obj    &
+     wbin\log.obj  &
+     wbin\result.obj  &
+     wbin\reports.obj &
+     wbin\start.obj   &
+     wbin\etalon.obj  &
+     wbin\tcxloop.obj &
+     wbin\ada_4sys.obj&
+     wbin\inf_file.obj&
+     wbin\inf_form.obj&
+     wbin\inf_graf.obj&
+     wbin\inf_rab.obj &
+     wbin\loadcfg.obj &
+     wbin\mod_pods.obj&
+     wbin\poly_sin.obj&
+     wbin\savecfg.obj &
+     wbin\sys_har.obj &
+     wbin\dac_adc.obj &
+     wbin\emsbuf.obj
+
+
+.before:
+  @set ADA_CC=$COPT
+  @set ADA_CPP=$POPT
+
+wbin\buf_io.obj : buf_io.c .AUTODEPEND
+ *$(CC) @ADA_CC buf_io.c
+
+wbin\tcxlcfg.obj : tcxlcfg.c .AUTODEPEND
+ *$(CC) @ADA_CC tcxlcfg.c
+
+wbin\config.obj : config.c .AUTODEPEND
+ *$(CC) @ADA_CC config.c
+
+wbin\run_grf.obj : run_grf.cpp .AUTODEPEND
+ *$(PP) @ADA_CPP /ie:\work\libs run_grf.cpp
+
+wbin\sys_test.obj : sys_test.c .AUTODEPEND
+ *$(CC) @ADA_CC /ie:\work\libs sys_test.c
+
+wbin\upi.obj : upi.c .AUTODEPEND
+ *$(CC) @ADA_CC upi.c
+
+wbin\vars.obj : vars.c .AUTODEPEND
+ *$(CC) @ADA_CC vars.c
+
+wbin\log.obj : log.cpp .AUTODEPEND
+ *$(PP) @ADA_CPP log.cpp
+
+wbin\result.obj : result.cpp .AUTODEPEND
+ *$(PP) @ADA_CPP result.cpp
+
+wbin\reports.obj : reports.cpp .AUTODEPEND
+ *$(PP) @ADA_CPP  reports.cpp
+
+wbin\start.obj : start.cpp .AUTODEPEND
+ *$(PP) @ADA_CPP start.cpp
+
+wbin\etalon.obj : etalon.cpp .AUTODEPEND
+ *$(PP) @ADA_CPP etalon.cpp
+
+wbin\tcxloop.obj : tcxloop.cpp .AUTODEPEND
+ *$(PP) @ADA_CPP  tcxloop.cpp
+
+wbin\ada_4sys.obj : WW\ada_4sys.c .AUTODEPEND
+ *$(CC) @ADA_CC WW\ada_4sys.c
+
+wbin\inf_file.obj : WW\inf_file.c .AUTODEPEND
+ *$(CC) @ADA_CC WW\inf_file.c
+
+wbin\inf_form.obj : WW\inf_form.c .AUTODEPEND
+ *$(CC) @ADA_CC WW\inf_form.c
+
+wbin\inf_graf.obj : WW\inf_graf.c .AUTODEPEND
+ *$(CC) @ADA_CC WW\inf_graf.c
+
+wbin\inf_rab.obj : WW\inf_rab.c .AUTODEPEND
+ *$(CC) @ADA_CC WW\inf_rab.c
+
+wbin\loadcfg.obj : WW\loadcfg.c .AUTODEPEND
+ *$(CC) @ADA_CC WW\loadcfg.c
+
+wbin\mod_pods.obj : WW\mod_pods.c .AUTODEPEND
+ *$(CC) @ADA_CC WW\mod_pods.c
+
+wbin\poly_sin.obj : WW\poly_sin.c .AUTODEPEND
+ *$(CC) @ADA_CC WW\poly_sin.c
+
+wbin\savecfg.obj : WW\savecfg.c .AUTODEPEND
+ *$(CC) @ADA_CC WW\savecfg.c
+
+wbin\sys_har.obj : WW\sys_har.c .AUTODEPEND
+ *$(CC) @ADA_CC WW\sys_har.c
+
+wbin\dac_adc.obj : ..\upi\dac_adc.c .AUTODEPEND
+ *$(CC) @ADA_CC ..\upi\dac_adc.c
+
+wbin\emsbuf.obj : ems\emsbuf.cpp .AUTODEPEND
+ *$(PP) @ADA_CPP ems\emsbuf.cpp
+
+.\wbin\ada_4sys.exe : $(OBJS) $(LIBS) .AUTODEPEND
+ @e:
+ @%write stend.lk1 NAME wbin\ada_4sys
+ @%append stend.lk1 FIL wbin\buf_io.obj,wbin\upi.obj,wbin\tcxlcfg.obj, &
+     wbin\config.obj,wbin\run_grf.obj,wbin\sys_test.obj,wbin\vars.obj, &
+     wbin\log.obj,wbin\result.obj,wbin\reports.obj,wbin\start.obj,  &
+     wbin\tcxloop.obj,wbin\ada_4sys.obj,wbin\inf_file.obj,wbin\inf_form.obj,&
+     wbin\inf_graf.obj,wbin\inf_rab.obj,wbin\loadcfg.obj,wbin\mod_pods.obj,&
+     wbin\poly_sin.obj,wbin\savecfg.obj,wbin\sys_har.obj,wbin\dac_adc.obj, &
+     wbin\emsbuf.obj,wbin\etalon.obj
+ @%append stend.lk1 LIBR d:\tcxl\tcxlwcld.lib,d:\tcxl\_tcxlwcl.lib, &
+    ..\adaptive\wbin\adaptive.lib
+# , ..\libs\expanw_l.lib
+ *wlink SYS dos op m d all op st=16384 op maxe=25 op v op symf @stend.lk1
+

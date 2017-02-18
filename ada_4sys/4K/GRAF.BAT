@@ -1,0 +1,1 @@
+@echo. last_sth.txt | e:\work\grf\graf %1 %2

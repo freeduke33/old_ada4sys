@@ -1,0 +1,25 @@
+.ERASE
+
+OPT  = /d2/mf/i.;..\upi;..\adaptive\inc /fo=.\wbin\$^&
+LOPT = debug Watcom All
+
+.c: ..\upi;.\
+.obj: .\wbin
+
+.c.obj: .AUTODEPEND
+        wcc386 $[* $(OPT)
+.cpp.obj: .AUTODEPEND
+        wpp386 $[* $(OPT)
+
+
+OBJS = multigen.obj &
+       aloop.obj &
+       common.obj &
+       dac_adc.obj  &
+
+multigen.exe : $(OBJS)
+    wlink $(LOPT) system dos4g file wbin\*.obj libfile ..\adaptive\wbin\adaptive.lib name multigen
+
+
+
+

@@ -1,0 +1,32 @@
+project: ada_graf.exe .SYMBOLIC
+
+CC_OPT= -w4 -e25 -zq -otexan -d2 -mf -bt=dos4gw -i.\;..\;..\..\grf
+
+
+ada_graf.exe: etalon.obj sth.obj work.obj buf_io.obj ada_graf.obj .AUTODEPEND
+ @%write  ada_graf.lk NAME ada_graf
+ @%append ada_graf.lk FILE ada_graf.obj,etalon.obj,sth.obj,work.obj,buf_io.obj
+ @%append ada_graf.lk LIBRARY ..\..\grf\_grf386.lib
+ *wlink SYS dos4g op m d all op st=8192 op maxe=25 op q op symf @ada_graf.lk
+ @del ada_graf.lk
+
+ada_graf.obj: ada_graf.c ada_graf.h .AUTODEPEND
+ *wcc386 $(CC_OPT) ada_graf.c
+
+etalon.obj: etalon.c ada_graf.h .AUTODEPEND
+ *wcc386 $(CC_OPT) etalon.c
+
+sth.obj: sth.c ada_graf.h .AUTODEPEND
+ *wcc386 $(CC_OPT) sth.c
+
+work.obj: work.c ada_graf.h .AUTODEPEND
+ *wcc386 $(CC_OPT) work.c
+
+
+# -------------------------------
+
+buf_io.obj: ..\buf_io.c .AUTODEPEND
+ *wcc386 $(CC_OPT) ..\buf_io.c
+
+#common.obj: ..\common.cpp ..\config.h ..\..\adaptiva\inc\log.hpp .AUTODEPEND
+# *wcc386 $(CC_OPT) ..\common.cpp

@@ -1,0 +1,67 @@
+DOS=dos
+MODEL=l
+OPT=-i=D:\WATCOM\h -w4 -e25 -zq -otexan -d2 -m$(MODEL) -bt=dos4gw
+
+project : e:\work\grf\_grfwc$(MODEL).lib e:\work\grf\graf.exe .SYMBOLIC
+
+
+!define BLANK ""
+
+e:\work\grf\_grf_drw.obj : e:\work\grf\_grf_drw.c .AUTODEPEND
+ @e:
+ cd e:\work\grf
+ *wcc _grf_drw.c $(OPT)
+
+e:\work\grf\_grf_ini.obj : e:\work\grf\_grf_ini.c .AUTODEPEND
+ @e:
+ cd e:\work\grf
+ *wcc _grf_ini.c $(OPT)
+
+e:\work\grf\_grf_set.obj : e:\work\grf\_grf_set.c .AUTODEPEND
+ @e:
+ cd e:\work\grf
+ *wcc _grf_set.c $(OPT)
+
+e:\work\grf\_grf_txt.obj : e:\work\grf\_grf_txt.c .AUTODEPEND
+ @e:
+ cd e:\work\grf
+ *wcc _grf_txt.c $(OPT)
+
+e:\work\grf\_grf_vio.obj : e:\work\grf\_grf_vio.c .AUTODEPEND
+ @e:
+ cd e:\work\grf
+ *wcc _grf_vio.c $(OPT)
+
+e:\work\grf\grf_look.obj : e:\work\grf\grf_look.c .AUTODEPEND
+ @e:
+ cd e:\work\grf
+ *wcc grf_look.c $(OPT)
+
+e:\work\grf\grf_show.obj : e:\work\grf\grf_show.c .AUTODEPEND
+ @e:
+ cd e:\work\grf
+ *wcc grf_show.c $(OPT)
+
+e:\work\grf\_grfwc$(MODEL).lib : e:\work\grf\_grf_drw.obj e:\work\grf\_grf_ini.obj e:\w&
+ork\grf\_grf_set.obj e:\work\grf\_grf_txt.obj e:\work\grf\_grf_vio.obj e:\wo&
+rk\grf\grf_look.obj e:\work\grf\grf_show.obj e:\work\grf\_grf.h e:\work\grf\&
+look_def.h e:\work\grf\look_grf.h .AUTODEPEND
+ @e:
+ cd e:\work\grf
+ @%write grf.lb1 _grf_drw.obj+_grf_ini.obj+_grf_set.obj+_grf_txt.obj+_grf_vi&
+o.obj+grf_look.obj+grf_show.obj
+ *wlib -b -c -n -q -p=512 _grfwc$(MODEL).lib @grf.lb1
+
+e:\work\grf\graf.obj : e:\work\grf\graf.c .AUTODEPEND
+ @e:
+ cd e:\work\grf
+ *wcc graf.c $(OPT)
+
+e:\work\grf\graf.exe : e:\work\grf\graf.obj e:\work\grf\_grf386.lib .AUTODEPEND
+ @e:
+ @cd e:\work\grf
+ @%write graf.lk1 NAME graf
+ @%append graf.lk1 FIL graf.obj
+ @%append graf.lk1 LIBR _grfwc$(MODEL).lib
+ *wlink SYS $(DOS) op m d all op st=8192 op maxe=25 op q op symf @graf.lk1
+ @del graf.lk1

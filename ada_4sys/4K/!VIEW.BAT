@@ -1,0 +1,1 @@
+@..\view\ada_view.exe

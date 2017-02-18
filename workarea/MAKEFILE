@@ -1,0 +1,47 @@
+COMPILER=BORLAND
+#COMPILER=WATCOM
+
+!ifeq COMPILER WATCOM
+CC=wcl386
+LIB=wlib
+COPT=/d2/zq/wx
+!endif
+
+!ifeq COMPILER BORLAND
+CC=bcc
+COPT= -ml -v
+LIB=tlib
+!endif
+
+LIBSEP=
+
+OBJS=$(LIBSEP)lineidx.obj &
+     $(LIBSEP)tabfile.obj &
+     $(LIBSEP)numtxt.obj &
+     $(LIBSEP)temfile.obj &
+     $(LIBSEP)uprfile.obj &
+     $(LIBSEP)tabitem.obj &
+     $(LIBSEP)timestam.obj &
+     $(LIBSEP)logfile.obj &
+     $(LIBSEP)workarea.obj
+
+.cpp.obj: workarea.hpp tabidx.hpp
+          $(CC) -c $(COPT) $<
+
+
+example.exe: example.cpp workarea.lib
+    $(CC) $(COPT) example.cpp workarea.lib
+
+workarea.lib: $(OBJS)
+LIBSEP=+-
+          @%write workarea.lk $(OBJS)
+          $(LIB) workarea.lib @workarea.lk
+          @erase workarea.lk
+
+numtxt.obj: numtxt.cpp numtxt.hpp workarea.hpp tabidx.hpp
+          $(CC) -c $(COPT) numtxt.cpp
+
+
+clean: .SYMBOLIC
+   if exist *.obj del *.obj
+   if exist workarea.lib del workarea.lib

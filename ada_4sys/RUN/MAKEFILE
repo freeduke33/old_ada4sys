@@ -1,0 +1,69 @@
+TARGET=loop
+# TARGET=test
+
+project : ada_$(TARGET).exe .SYMBOLIC
+
+W=..\..
+
+COPT=/zt/d2/oxt/wx/zq/mh/5/fpi87/fp5 /i=..\.;$(W)\upi;$(W)\adaptive\inc;..\ems /fo=wbin\
+
+!ifeq TARGET loop
+POPT=$(COPT)
+!else
+POPT=$(COPT) /dDETECTIVE
+!endif
+
+
+CC=wcc
+PP=wpp
+
+LIBS=$(W)\adaptive\wbin\adaptive.lib
+
+OBJS=wbin\buf_io.obj  &
+     wbin\upi.obj     &
+     wbin\config.obj  &
+     wbin\log.obj     &
+     wbin\result.obj  &
+     wbin\start.obj   &
+     wbin\examine.obj &
+     wbin\etalon.obj  &
+     wbin\txtloop.obj &
+     wbin\cfgloop.obj &
+     wbin\nomodel.obj &
+     wbin\okmodel.obj &
+     wbin\dac_adc.obj &
+     wbin\common.obj &
+     wbin\run.obj
+
+
+.before:
+  @set RUN_CC=$COPT
+  @set RUN_PP=$POPT
+  @SET LIB=d:\watcom\lib286;d:\watcom\lib286\dos
+
+.c:   .;..;$(W)\upi
+.cpp: .;..;
+
+.c.obj: .AUTODEPEND
+  *$(CC) @RUN_CC $[*
+
+.cpp.obj: .AUTODEPEND
+  *$(PP) @RUN_PP $[*
+
+wbin\etalon.obj : ..\etalon.cpp .AUTODEPEND
+ *$(PP) @RUN_PP ..\etalon.cpp /D__NOTCXL__
+
+wbin\log.obj : ..\log.cpp .AUTODEPEND
+ *$(PP) @RUN_PP ..\log.cpp /i$(W)\adaptive\log
+
+wbin\cfgloop.obj: ..\cfgloop.cpp .AUTODEPEND
+ *$(PP) @RUN_PP ..\cfgloop.cpp /i$(W)\adaptive\log
+
+ada_$(TARGET).exe : $(OBJS) $(LIBS) .AUTODEPEND
+ @e:
+ @%write  stend.lk NAME ada_$(TARGET)
+ @%append stend.lk SYS dos OP m OP st=20480 OP maxe=25 OP v OP d
+ @%append stend.lk FILE wbin\*.obj
+ @%append stend.lk LIBR $(W)\adaptive\wbin\adaptive.lib
+ *wlink @stend.lk
+
